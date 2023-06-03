@@ -21,6 +21,7 @@ const { nickname, room } = Object.fromEntries(
 
 socket.on('message', (message) => {
   const html = Mustache.render(messageTemplate, {
+    nickname: 'Chatti Team',
     message: message.text,
     createdAt: moment(message.createdAt).format('H:mm a'),
   });
@@ -29,6 +30,7 @@ socket.on('message', (message) => {
 
 socket.on('locationMessage', (message) => {
   const html = Mustache.render(locationTemplate, {
+    nickname: message.nickname,
     url: message.url,
     createdAt: moment(message.createdAt).format('H:mm a'),
   });
@@ -42,11 +44,10 @@ $messageForm.addEventListener('submit', (e) => {
 
   const message = e.target.elements.message.value;
 
-  socket.emit('sendMessage', message, (callbackMessage) => {
+  socket.emit('sendMessage', message, (error) => {
     $messageFormButton.removeAttribute('disabled');
     $messageFormInput.value = '';
     $messageFormInput.focus();
-    console.log(callbackMessage);
   });
 });
 
@@ -72,4 +73,9 @@ $shareCoordinatesButton.addEventListener('click', () => {
   });
 });
 
-socket.emit('join', { nickname, room });
+socket.emit('join', { nickname, room }, (error) => {
+  if (error) {
+    alert(error);
+    location.href = '/';
+  }
+});
