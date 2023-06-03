@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
 
     socket.emit(
       'message',
-      createMessage(user.nickname, `Welcome to Chatti, ${user.nickname}!`)
+      createMessage('Chatti Team', `Welcome to Chatti, ${user.nickname}!`)
     );
     socket.broadcast
       .to(user.room)

@@ -21,7 +21,7 @@ const { nickname, room } = Object.fromEntries(
 
 socket.on('message', (message) => {
   const html = Mustache.render(messageTemplate, {
-    nickname: 'Chatti Team',
+    nickname: message.nickname,
     message: message.text,
     createdAt: moment(message.createdAt).format('H:mm a'),
   });
