@@ -44,6 +44,11 @@ io.on('connection', (socket) => {
         createMessage(user.nickname, `${user.nickname} has joined!`)
       );
 
+    io.to(user.room).emit('roomData', {
+      room: user.room,
+      users: getUsersInRoom(user.room),
+    });
+
     callback();
   });
 
@@ -67,6 +72,11 @@ io.on('connection', (socket) => {
         'message',
         createMessage(user.nickname, `${user.nickname} has left.`)
       );
+
+      io.to(user.room).emit('roomData', {
+        room: user.room,
+        users: getUsersInRoom(user.room),
+      });
     }
   });
 
