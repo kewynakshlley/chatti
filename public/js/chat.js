@@ -20,7 +20,30 @@ const { nickname, room } = Object.fromEntries(
   new URLSearchParams(location.search)
 );
 
-const autoscroll = () => {};
+const autoscroll = () => {
+  // Get the last message element
+  const $newMessage = $messages.lastElementChild;
+
+  // Calculate the height of the new message including margin
+  const newMessageStyles = getComputedStyle($newMessage);
+  const newMessageMargin = parseInt(newMessageStyles.marginBottom);
+  const newMessageHeight = $newMessage.offsetHeight + newMessageMargin;
+
+  // Calculate the visible height of the message container
+  const visibleHeight = $messages.offsetHeight;
+
+  // Calculate the total height of the message container
+  const containerHeight = $messages.scrollHeight;
+
+  // Calculate the current scroll offset (how far the user has scrolled)
+  const scrollOffset = $messages.scrollTop + visibleHeight;
+
+  // Check if the user is at the bottom of the container before the new message is added
+  if (containerHeight - newMessageHeight <= scrollOffset) {
+    // Scroll to the bottom of the container
+    $messages.scrollTop = $messages.scrollHeight;
+  }
+};
 
 socket.on('message', (message) => {
   const html = Mustache.render(messageTemplate, {
