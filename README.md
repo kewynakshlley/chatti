@@ -4,7 +4,7 @@ Chatti is a real-time chat application built with Node.js and Socket.IO.
 
 ## Demo
 
-![Chatti Demo]![2023-06-03 21-56-51](https://github.com/kewynakshlley/chatti/assets/24993749/1d08720f-cd42-4050-9380-528a052c583f)
+![Chatti Demo](https://github.com/kewynakshlley/chatti/assets/24993749/1d08720f-cd42-4050-9380-528a052c583f)
 
 
 ## Features
